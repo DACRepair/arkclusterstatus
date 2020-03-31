@@ -1,7 +1,7 @@
 FROM python:3.7-alpine
 
 ENV BASE_URL "unix:///var/run/docker.sock"
-ENV ARKCMD ""
+ENV ARKCMD "arkmanager status | grep 'Server running\|Server listening\|Players'"
 ENV THEME "darkly"
 ENV HOST "0.0.0.0"
 ENV PORT "8888"
