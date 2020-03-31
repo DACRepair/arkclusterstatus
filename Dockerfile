@@ -14,6 +14,6 @@ COPY templates ./templates/
 RUN pip install -r requirements.txt
 
 VOLUME /var/run/docker.sock
-EXPOSE $PORT
+EXPOSE 8888
 
 CMD ["python", "./server.py"]
