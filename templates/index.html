@@ -24,7 +24,9 @@
             <td>{{ item['Name'].lstrip("/") }}</td>
             <td>{{ item['Id'][0:6] + "..." }}</td>
             <td>{{ item['Status'] }}</td>
-            <td>{{ item['Command'] }}</td>
+            <td>
+                <pre>{{ item['Command'] }}</pre>
+            </td>
         </tr>
         {% endfor %}
         </tbody>

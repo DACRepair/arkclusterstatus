@@ -24,19 +24,6 @@ Bootstrap(APP)
 DOCKER = APIClient(base_url=BASE_URL)
 
 
-def format_output(stdout: str):
-    """
-    Formats cmd output to html compatable text
-
-    :param stdout:
-    :return:
-    """
-    stdout = stdout.split('\n')
-    stdout = [x.lstrip(' ') for x in stdout]
-    stdout = "<br />\n".join(stdout)
-    return stdout
-
-
 @APP.route("/")
 def index():
     """
@@ -52,7 +39,7 @@ def index():
                 "Id": container['Id'],
                 "Name": container['Names'][0],
                 "Status": container['Status'],
-                "Command": format_output(DOCKER.exec_start(cmd['Id']).decode("utf-8")),
+                "Command": DOCKER.exec_start(cmd['Id']).decode("utf-8"),
                 "Color": ""
             })
         else:
