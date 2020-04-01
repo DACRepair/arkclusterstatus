@@ -10,8 +10,7 @@ from flask_bootstrap import Bootstrap
 from docker.client import APIClient
 
 # Docker settings
-# BASE_URL = os.getenv("DOCKER_URL", "unix:///var/run/docker.sock")
-BASE_URL = "tcp://home.sgtcanadian.com:27777"
+BASE_URL = os.getenv("DOCKER_URL", "unix:///var/run/docker.sock")
 CFILTER = os.getenv("CFILTER", "^Ark-.*$")
 
 # Web settings
