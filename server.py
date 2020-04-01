@@ -36,7 +36,9 @@ def index():
     for container in [x for x in DOCKER.containers(all=True) if re.match(CFILTER, x['Names'][0].lstrip("/"))]:
         if str(container['Status']).startswith("Up"):
             cmd = DOCKER.exec_create(container['Id'], ARKCMD)
-            cmd = ''.join(filter(lambda x: x in set(string.printable), DOCKER.exec_start(cmd['Id']).decode("utf-8")))
+            cmd = DOCKER.exec_start(cmd['Id']).decode("utf-8")
+            print(cmd)
+            cmd = ''.join(filter(lambda x: x in set(string.printable), cmd))
             containers.append({
                 "Id": container['Id'],
                 "Name": container['Names'][0],
