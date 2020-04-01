@@ -45,7 +45,7 @@ def index():
     :return:
     """
     containers = []
-    for container in [x for x in DOCKER.containers(all=True) if re.match(CFILTER, x['Names'][0])]:
+    for container in [x for x in DOCKER.containers(all=True) if re.match(CFILTER, x['Names'][0].lstrip("/"))]:
         if str(container['Status']).startswith("Up"):
             cmd = DOCKER.exec_create(container['Id'], ARKCMD)
             containers.append({
