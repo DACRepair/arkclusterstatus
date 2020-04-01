@@ -3,14 +3,18 @@ Simple ARK: Survival Evolved CLuster Status Page
 """
 
 import os
+import re
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from docker.client import APIClient
 
+# Docker settings
 BASE_URL = os.getenv("DOCKER_URL", "unix:///var/run/docker.sock")
+CFILTER = os.getenv("CFILTER", "^.*$")
 ARKCMD = os.getenv("ARKCMD", "echo $HOSTNAME")
-THEME = os.getenv("THEME", "darkly")
 
+# Web settings
+THEME = os.getenv("THEME", "darkly")
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8888"))
 
@@ -27,7 +31,7 @@ def index():
     :return:
     """
     containers = []
-    for container in DOCKER.containers(all=True):
+    for container in [x for x in DOCKER.containers(all=True) if re.match(CFILTER, x['Names'][0])]:
         if str(container['Status']).startswith("Up"):
             cmd = DOCKER.exec_create(container['Id'], ARKCMD)
             containers.append({
