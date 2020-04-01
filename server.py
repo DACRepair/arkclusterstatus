@@ -4,6 +4,7 @@ Simple ARK: Survival Evolved CLuster Status Page
 
 import os
 import re
+import string
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from docker.client import APIClient
@@ -39,7 +40,7 @@ def index():
                 "Id": container['Id'],
                 "Name": container['Names'][0],
                 "Status": container['Status'],
-                "Command": DOCKER.exec_start(cmd['Id']).decode("utf-8"),
+                "Command": filter(lambda x: x in set(string.printable), DOCKER.exec_start(cmd['Id']).decode("utf-8")),
                 "Color": ""
             })
         else:
