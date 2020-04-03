@@ -10,7 +10,7 @@ ark_cluster = ArkCluster()
 
 
 @Flask.route('/')
-@Flask.cache.cached(timeout=30)
+@Flask.cache.cached(timeout=Flask.config['PANEL_CACHE'])
 def index():
     servers = ark_cluster.get_servers()
     statuses = ark_cluster.get_status()
