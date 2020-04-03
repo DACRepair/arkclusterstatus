@@ -4,6 +4,7 @@ ENV WEB__DEBUG "false"
 ENV WEB__HOST "0.0.0.0"
 ENV WEB__PORT "8888"
 ENV WEB__THEME "darkly"
+ENV WEB__CACHE
 
 ENV DOCKER__URL "unix:///var/run/docker.sock"
 ENV ARK__FILTER "^.*$"
