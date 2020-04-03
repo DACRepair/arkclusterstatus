@@ -1,19 +1,23 @@
 FROM python:3.7-alpine
 
-ENV BASE_URL "unix:///var/run/docker.sock"
-ENV ARKCMD "arkmanager status"
-ENV CFILTER "^.*$"
+ENV WEB__DEBUG "false"
+ENV WEB__HOST "0.0.0.0"
+ENV WEB__PORT "8888"
+ENV WEB__THEME "darkly"
 
-ENV THEME "darkly"
-ENV HOST "0.0.0.0"
-ENV PORT "8888"
+ENV DOCKER__URL "unix:///var/run/docker.sock"
+ENV ARK__FILTER "^.*$"
+ENV ARK__COMMAND "arkmanager status"
+ENV ARK__TIMEOUT 30
+
 
 WORKDIR /usr/src/app
 COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
 COPY server.py ./
 COPY templates ./templates/
-
-RUN pip install -r requirements.txt
+COPY ArkClusterStatus ./ArkClusterStatus/
 
 VOLUME /var/run/docker.sock
 EXPOSE 8888

@@ -3,7 +3,7 @@
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="https://bootswatch.com/3/{{ theme }}/bootstrap.min.css">
+<link rel="stylesheet" href="{{ theme }}">
 {% endblock %}
 
 
@@ -21,10 +21,23 @@
         <tbody>
         {% for item in containers %}
         <tr class="{{ item['Color'] }}">
-            <td>{{ item['Name'].lstrip("/") }}</td>
+            <td>{{ item['Name'] }}</td>
             <td>{{ item['Status'] }}</td>
             {% autoescape false %}
-            <td>{{ item['Command'] }}</td>
+            <td>
+                {% if item['ArkManager'] %}
+                Server Name: {{ item['ArkManager']['server_name'] }}<br/>
+                Server Status: {{ item['ArkManager']['server_status'] }}<br/>
+                Players: {{item['ArkManager']['players']}} ({{item['ArkManager']['active_players'] }} Active)<br/>
+                <br/>
+                ARK Servers: <a href="{{ item['ArkManager']['arkservers_link'] }}">
+                {{ item['ArkManager']['arkservers_link'] }}</a><br/>
+                Steam Connect: <a href="{{ item['ArkManager']['steam_connect_link'] }}">
+                {{item['ArkManager']['steam_connect_link'] }}</a>
+                {% else %}
+                Server Offline
+                {% endif %}
+            </td>
             {% endautoescape %}
         </tr>
         {% endfor %}
